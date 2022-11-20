@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
@@ -8,8 +8,10 @@
 </head>
 <body>
 <h1>Auto Service</h1>
-<a href="/user/profile" class="btn btn-primary">User profile</a>
-<a href="/user/login" class="btn btn-primary">Login</a>
+
+<a href="userProfile.html" th:href="@{user/profile}" class="btn btn-primary">User profile</a>
+<a href="login.html" th:href="@{user/login}" class="btn btn-primary">Login</a>
+<a href="registration.html" th:href="@{user/registration}" class="btn btn-primary">Register</a>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
