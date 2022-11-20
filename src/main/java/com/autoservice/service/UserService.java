@@ -1,6 +1,6 @@
 package com.autoservice.service;
 
-import com.autoservice.dto.UserDto;
+import com.autoservice.dto.RegistrationDto;
 import com.autoservice.entity.User;
 import com.autoservice.repository.UserRepository;
 import com.autoservice.service.mapper.UserMapper;
@@ -20,7 +20,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public User save(UserDto dto) {
+    public User save(RegistrationDto dto) {
         User user = mapToUser(dto);
         userRepository.save(user);
         return user;
@@ -31,7 +31,7 @@ public class UserService {
         return byEmail.isPresent();
     }
 
-    private User mapToUser(UserDto dto) {
+    private User mapToUser(RegistrationDto dto) {
         return userMapper.convertUserDtoToUser(dto);
     }
 
