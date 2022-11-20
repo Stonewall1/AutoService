@@ -1,6 +1,7 @@
 package com.autoservice.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,6 +12,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    @OneToMany
+    private List<Car> cars;
 
     public User() {
     }
