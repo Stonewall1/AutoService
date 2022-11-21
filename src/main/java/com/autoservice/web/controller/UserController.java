@@ -5,6 +5,7 @@ import com.autoservice.dto.RegistrationDto;
 import com.autoservice.entity.User;
 import com.autoservice.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -65,7 +66,18 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(HttpSession session , Model model) {
+        model.addAttribute("currentUser" , (User) session.getAttribute("currentUser"));
         return "userProfile";
+    }
+
+    @GetMapping("/profile/addCar")
+    public String addCar(){
+        return "addCar";
+    }
+
+    @PostMapping("/profile/addCar")
+    public String addCar(Model model){
+        return "redirect:/user/profile";
     }
 }
