@@ -5,7 +5,6 @@ import com.autoservice.dto.RegistrationDto;
 import com.autoservice.entity.User;
 import com.autoservice.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("login") RegistrationDto registrationDto) {
+    public String login(@ModelAttribute("login") LoginDto loginDto) {
         return "login";
     }
 
@@ -66,18 +65,26 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(HttpSession session , Model model) {
-        model.addAttribute("currentUser" , (User) session.getAttribute("currentUser"));
-        return "userProfile";
+    public String profile(HttpSession session, Model model) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null) {
+            return "redirect:/user/login";
+        }
+        Optional<User> byEmail = userService.findByEmail(currentUser.getEmail());
+        if (byEmail.isPresent()) {
+            model.addAttribute("currentUser", byEmail.get());
+            return "userProfile";
+        }
+        return "redirect:/user/login";
     }
 
     @GetMapping("/profile/addCar")
-    public String addCar(){
+    public String addCar() {
         return "addCar";
     }
 
     @PostMapping("/profile/addCar")
-    public String addCar(Model model){
+    public String addCar(Model model) {
         return "redirect:/user/profile";
     }
 }

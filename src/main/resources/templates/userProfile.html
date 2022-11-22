@@ -11,10 +11,9 @@
 <h3>Your credentials :</h3>
 <p th:text="${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></p>
 <p th:text="'Email : ' + ${currentUser.getEmail()}"></p>
-
+<!--TODO-->
+<!--Add info bout cars-->
 <h3>Your cars :</h3>
-<!--//TODO-->
-<!--//Resolve fetch type of Cars-->
 <table>
     <tr th:each="car : ${currentUser.getCars()}">
         <td th:text="${car.getBrand()}"></td>
@@ -22,6 +21,7 @@
 </table>
 
 <a href="addCar.html" th:href="@{user/profile/addCar}" class="btn btn-success">Add car info</a>
+<a href="/" class="btn btn-primary">Back</a>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
