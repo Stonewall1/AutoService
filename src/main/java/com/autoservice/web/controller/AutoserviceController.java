@@ -14,8 +14,14 @@ import javax.servlet.http.HttpSession;
 public class AutoserviceController {
 
     @GetMapping
-    public String homepage(Model model , HttpSession session){
-        model.addAttribute("currentUser" , (User) session.getAttribute("currentUser"));
+    public String homepage(Model model, HttpSession session) {
+        model.addAttribute("currentUser", (User) session.getAttribute("currentUser"));
         return "homepage";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }
