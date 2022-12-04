@@ -26,4 +26,13 @@ public class Car {
     private String VIN;
     @ManyToOne
     private User owner;
+
+    public Car(String brand, String model, String colour, String imageUrl, double engineVolume, String VIN) {
+        this.brand = brand;
+        this.model = model;
+        this.colour = colour;
+        this.imageUrl = imageUrl;
+        this.engineVolume = engineVolume;
+        this.VIN = VIN;
+    }
 }

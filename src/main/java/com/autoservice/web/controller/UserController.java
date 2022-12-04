@@ -1,12 +1,13 @@
 package com.autoservice.web.controller;
 
+import com.autoservice.dto.CarDto;
 import com.autoservice.dto.LoginDto;
 import com.autoservice.dto.ProfileEditDto;
 import com.autoservice.dto.RegistrationDto;
+import com.autoservice.entity.Car;
 import com.autoservice.entity.User;
+import com.autoservice.service.CarService;
 import com.autoservice.service.UserService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +21,13 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private final CarService carService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CarService carService) {
         this.userService = userService;
+        this.carService = carService;
     }
+
 
     @GetMapping("/registration")
     public String registration(@ModelAttribute("newUser") RegistrationDto registrationDto) {
@@ -99,12 +103,18 @@ public class UserController {
     }
 
     @GetMapping("/profile/addCar")
-    public String addCar() {
+    public String addCar(@ModelAttribute("newCar") CarDto carDto) {
         return "addCar";
     }
 
     @PostMapping("/profile/addCar")
-    public String addCar(Model model) {
+    public String addCar(@Valid @ModelAttribute("newCar") CarDto carDto, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "addCar";
+        }
+        User currentUser = (User) session.getAttribute("currentUser");
+        Car savedCar = carService.save(carDto, currentUser);
+        userService.addInfoAboutCar(currentUser.getId(), savedCar);
         return "redirect:/user/profile";
     }
 }

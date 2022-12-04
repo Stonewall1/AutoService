@@ -2,6 +2,7 @@ package com.autoservice.service;
 
 import com.autoservice.dto.ProfileEditDto;
 import com.autoservice.dto.RegistrationDto;
+import com.autoservice.entity.Car;
 import com.autoservice.entity.User;
 import com.autoservice.exception.UserNotFoundException;
 import com.autoservice.repository.UserRepository;
@@ -62,5 +63,11 @@ public class UserService {
 
     public ProfileEditDto prepareUserInfo(User user) {
         return userMapper.prepareUserInfo(user);
+    }
+
+    public void addInfoAboutCar(long id, Car car) {
+        User user = findById(id);
+        user.getCars().add(car);
+        update(user);
     }
 }
