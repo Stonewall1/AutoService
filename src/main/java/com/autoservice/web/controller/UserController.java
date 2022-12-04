@@ -1,6 +1,7 @@
 package com.autoservice.web.controller;
 
 import com.autoservice.dto.LoginDto;
+import com.autoservice.dto.ProfileEditDto;
 import com.autoservice.dto.RegistrationDto;
 import com.autoservice.entity.User;
 import com.autoservice.service.UserService;
@@ -76,6 +77,22 @@ public class UserController {
             return "userProfile";
         }
         return "redirect:/user/login";
+    }
+
+    @GetMapping("/profile/editProfile")
+    public String editProfile(@ModelAttribute("editProfile") ProfileEditDto profileEditDto, Model model, HttpSession session) {
+        model.addAttribute("profileInfo", (User) session.getAttribute("currentUser"));
+        return "editProfile";
+    }
+
+    @PostMapping("/profile/editProfile")
+    public String editProfile(@Valid @ModelAttribute("editProfile") ProfileEditDto profileEditDto, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "editProfile";
+        }
+        User currentUser = (User) session.getAttribute("currentUser");
+        User user = userService.editProfileInfo(currentUser, profileEditDto);
+        return "redirect:/user/profile";
     }
 
     @GetMapping("/profile/addCar")

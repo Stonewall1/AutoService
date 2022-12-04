@@ -1,7 +1,9 @@
 package com.autoservice.service;
 
+import com.autoservice.dto.ProfileEditDto;
 import com.autoservice.dto.RegistrationDto;
 import com.autoservice.entity.User;
+import com.autoservice.exception.UserNotFoundException;
 import com.autoservice.repository.UserRepository;
 import com.autoservice.service.mapper.UserMapper;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ public class UserService {
         return user;
     }
 
+    public User update(User u) {
+        return userRepository.save(u);
+    }
+
     public boolean userExists(String email) {
         Optional<User> byEmail = userRepository.findByEmail(email);
         return byEmail.isPresent();
@@ -37,5 +43,18 @@ public class UserService {
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User findById(long id) {
+        Optional<User> byId = userRepository.findById(id);
+        if (byId.isPresent()) {
+            return byId.get();
+        } else throw new UserNotFoundException();
+    }
+
+    public User editProfileInfo(User user, ProfileEditDto profileEditDto) {
+        User editedUser = userMapper.editUserProfile(user, profileEditDto);
+        update(editedUser);
+        return editedUser;
     }
 }
