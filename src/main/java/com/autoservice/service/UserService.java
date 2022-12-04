@@ -41,10 +41,12 @@ public class UserService {
         return userMapper.convertUserDtoToUser(dto);
     }
 
+    @Transactional(readOnly = true)
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+    @Transactional(readOnly = true)
     public User findById(long id) {
         Optional<User> byId = userRepository.findById(id);
         if (byId.isPresent()) {
@@ -56,5 +58,9 @@ public class UserService {
         User editedUser = userMapper.editUserProfile(user, profileEditDto);
         update(editedUser);
         return editedUser;
+    }
+
+    public ProfileEditDto prepareUserInfo(User user) {
+        return userMapper.prepareUserInfo(user);
     }
 }

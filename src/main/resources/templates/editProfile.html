@@ -11,7 +11,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col-4 text-center mt-5 ">
             <h3>Edit your profile</h3>
-            <form th:action="@{/user/profile/editProfile}" th:object="${editProfile}" method="post">
+            <form th:action="@{/user/profile/editProfile}" th:object="${currentInfo}" method="post">
                 <input type="text" th:field="*{email}" class="form-control" placeholder="Email"/>
                 <br>
                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></p>
@@ -34,7 +34,7 @@
                 <button class="btn btn-success">Edit</button>
                 <p th:text="${message}" style="color: red"></p>
             </form>
-            <a href="/user/profile/editProfile" class="btn btn-primary">Back</a>
+            <a href="/user/profile" class="btn btn-primary">Back</a>
         </div>
     </div>
 </div>

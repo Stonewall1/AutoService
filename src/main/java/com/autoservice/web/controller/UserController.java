@@ -5,6 +5,8 @@ import com.autoservice.dto.ProfileEditDto;
 import com.autoservice.dto.RegistrationDto;
 import com.autoservice.entity.User;
 import com.autoservice.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -80,18 +82,19 @@ public class UserController {
     }
 
     @GetMapping("/profile/editProfile")
-    public String editProfile(@ModelAttribute("editProfile") ProfileEditDto profileEditDto, Model model, HttpSession session) {
-        model.addAttribute("profileInfo", (User) session.getAttribute("currentUser"));
+    public String editProfile(Model model, HttpSession session) {
+        ProfileEditDto profileEditDto = userService.prepareUserInfo((User) session.getAttribute("currentUser"));
+        model.addAttribute("currentInfo", profileEditDto);
         return "editProfile";
     }
 
     @PostMapping("/profile/editProfile")
-    public String editProfile(@Valid @ModelAttribute("editProfile") ProfileEditDto profileEditDto, BindingResult bindingResult, HttpSession session) {
+    public String editProfile(@Valid @ModelAttribute("currentInfo") ProfileEditDto profileEditDto, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "editProfile";
         }
         User currentUser = (User) session.getAttribute("currentUser");
-        User user = userService.editProfileInfo(currentUser, profileEditDto);
+        userService.editProfileInfo(currentUser, profileEditDto);
         return "redirect:/user/profile";
     }
 

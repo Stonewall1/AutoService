@@ -18,4 +18,8 @@ public class UserMapper {
         user.setLastName(profileEditDto.getLastName());
         return user;
     }
+
+    public ProfileEditDto prepareUserInfo(User user) {
+        return new ProfileEditDto(user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
+    }
 }

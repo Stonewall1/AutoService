@@ -9,9 +9,9 @@
 <body>
 <h2>User profile</h2>
 <h3>Your credentials :</h3>
-<a href="editProfile.html" th:href="@{/user/profile/editProfile}" class="btn btn-primary">Edit profile info</a>
 <p th:text="${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></p>
 <p th:text="'Email : ' + ${currentUser.getEmail()}"></p>
+<a href="editProfile.html" th:href="@{/user/profile/editProfile}" class="btn btn-primary">Edit profile info</a>
 <!--TODO-->
 <!--Add info bout cars-->
 <h3>Your cars :</h3>
