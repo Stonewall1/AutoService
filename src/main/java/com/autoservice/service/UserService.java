@@ -70,4 +70,8 @@ public class UserService {
         user.getCars().add(car);
         update(user);
     }
+
+    public void deleteUsersCar(Car car, User user) {
+        user.getCars().remove(car);
+    }
 }

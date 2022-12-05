@@ -13,14 +13,19 @@
 <p th:text="'Email : ' + ${currentUser.getEmail()}"></p>
 <a href="editProfile.html" th:href="@{/user/profile/editProfile}" class="btn btn-primary">Edit profile info</a>
 <a th:href="@{/logout}" class="btn btn-dark">Logout</a>
-<!--TODO-->
-<!--Add info bout cars-->
+
 <h3>Your cars :</h3>
-<table>
-    <tr th:each="car : ${currentUser.getCars()}">
-        <td th:text="${car.getBrand()}"></td>
-    </tr>
-</table>
+<ul th:each="car : ${currentUser.getCars()}">
+    <li>
+        <img th:src="${car.getImageUrl()}" width="100" height="100" alt="">
+        <h5 th:text="${car.getBrand()} + ' ' + ${car.getModel()}"></h5>
+        <h5 th:text="'VIN : ' + ${car.getVIN()}"></h5>
+        <form th:action="@{/user/profile/deleteCar}">
+            <input th:type="hidden" th:name="id" th:value="${car.id}">
+            <button class="btn btn-danger">Delete</button>
+        </form>
+    </li>
+</ul>
 
 <a href="addCar.html" th:href="@{/user/profile/addCar}" class="btn btn-success">Add car info</a>
 <a href="/" class="btn btn-primary">Back</a>

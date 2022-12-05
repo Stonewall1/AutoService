@@ -117,4 +117,15 @@ public class UserController {
         userService.addInfoAboutCar(currentUser.getId(), savedCar);
         return "redirect:/user/profile";
     }
+
+    @GetMapping("/profile/deleteCar")
+    public String deleteCar(long id, HttpSession session) {
+        User userById = userService.findById(((User) session.getAttribute("currentUser")).getId());
+        Car carById = carService.findById(id);
+        userService.deleteUsersCar(carById, userById);
+        carService.deleteCar(carById);
+
+        userService.update(userById);
+        return "redirect:/user/profile";
+    }
 }
