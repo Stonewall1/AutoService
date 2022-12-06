@@ -26,6 +26,8 @@ public class User {
     private String phoneNumber;
     @OneToMany
     private List<Car> cars;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public User(String firstName, String lastName, String email, String password, String phoneNumber) {
         this.firstName = firstName;

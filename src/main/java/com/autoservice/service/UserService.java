@@ -3,6 +3,7 @@ package com.autoservice.service;
 import com.autoservice.dto.ProfileEditDto;
 import com.autoservice.dto.RegistrationDto;
 import com.autoservice.entity.Car;
+import com.autoservice.entity.Role;
 import com.autoservice.entity.User;
 import com.autoservice.exception.UserNotFoundException;
 import com.autoservice.repository.UserRepository;
@@ -39,7 +40,9 @@ public class UserService {
     }
 
     private User mapToUser(RegistrationDto dto) {
-        return userMapper.convertUserDtoToUser(dto);
+        User user = userMapper.convertUserDtoToUser(dto);
+        user.setRole(Role.CLIENT);
+        return user;
     }
 
     @Transactional(readOnly = true)

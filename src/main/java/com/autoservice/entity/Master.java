@@ -21,4 +21,11 @@ public class Master {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private Role role;
+
+    public Master(String firstName, String lastName, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+    }
 }
