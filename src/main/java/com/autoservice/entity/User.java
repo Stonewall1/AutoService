@@ -23,13 +23,15 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private String phoneNumber;
     @OneToMany
     private List<Car> cars;
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -11,6 +11,7 @@
 <h3>Your credentials :</h3>
 <p th:text="${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></p>
 <p th:text="'Email : ' + ${currentUser.getEmail()}"></p>
+<p th:text="'Phone number : ' + ${currentUser.getPhoneNumber()}"></p>
 <a href="editProfile.html" th:href="@{/user/profile/editProfile}" class="btn btn-primary">Edit profile info</a>
 <a th:href="@{/logout}" class="btn btn-dark">Logout</a>
 

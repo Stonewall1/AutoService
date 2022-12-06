@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
     public User convertUserDtoToUser(RegistrationDto dto) {
-        return new User(dto.getFirstName(), dto.getLastName(), dto.getEmail(), dto.getPassword());
+        return new User(dto.getFirstName(), dto.getLastName(), dto.getEmail(), dto.getPassword(), dto.getPhoneNumber());
     }
 
     public User editUserProfile(User user, ProfileEditDto profileEditDto) {
@@ -16,10 +16,11 @@ public class UserMapper {
         user.setPassword(profileEditDto.getPassword());
         user.setFirstName(profileEditDto.getFirstName());
         user.setLastName(profileEditDto.getLastName());
+        user.setPhoneNumber(profileEditDto.getPhoneNumber());
         return user;
     }
 
     public ProfileEditDto prepareUserInfo(User user) {
-        return new ProfileEditDto(user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName());
+        return new ProfileEditDto(user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getPhoneNumber());
     }
 }

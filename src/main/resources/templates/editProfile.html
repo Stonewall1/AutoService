@@ -31,6 +31,11 @@
                 <br>
                 <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red"></p>
                 <br>
+
+                <input type="text" th:field="*{phoneNumber}" class="form-control" placeholder="PhoneNumber"/>
+                <br>
+                <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color: red"></p>
+                <br>
                 <button class="btn btn-success">Edit</button>
                 <p th:text="${message}" style="color: red"></p>
             </form>

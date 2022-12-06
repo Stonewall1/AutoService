@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 
 public class RegistrationDto {
     @NotBlank(message = "Field cant be empty")
-    @Pattern(regexp = "\\b[\\w.]+@\\w+\\.\\w{2,3}" , message = "Wrong email pattern")
+    @Pattern(regexp = "\\b[\\w.]+@\\w+\\.\\w{2,3}", message = "Wrong email pattern")
     private String email;
     @NotBlank(message = "Field cant be empty")
     private String password;
@@ -13,15 +13,19 @@ public class RegistrationDto {
     private String firstName;
     @NotBlank(message = "Field cant be empty")
     private String lastName;
+    @NotBlank(message = "Field cant be empty")
+    @Pattern(regexp = "\\+\\d{12}", message = "Wrong phone number pattern")
+    private String phoneNumber;
 
     public RegistrationDto() {
     }
 
-    public RegistrationDto(String email, String password, String firstName, String lastName) {
+    public RegistrationDto(String email, String password, String firstName, String lastName, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -56,13 +60,22 @@ public class RegistrationDto {
         this.password = password;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
-        return "UserDto{" +
+        return "RegistrationDto{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }
