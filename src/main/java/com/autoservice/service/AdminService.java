@@ -1,10 +1,13 @@
 package com.autoservice.service;
 
+import com.autoservice.dto.AdminLoginDto;
 import com.autoservice.entity.Admin;
 import com.autoservice.entity.Role;
 import com.autoservice.repository.AdminRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -33,5 +36,7 @@ public class AdminService {
         adminRepository.save(admin);
     }
 
-
+    public Optional<Admin> checkCredentials(AdminLoginDto adminLoginDto) {
+        return adminRepository.findByUsernameAndPassword(adminLoginDto.getUsername(), adminLoginDto.getPassword());
+    }
 }
