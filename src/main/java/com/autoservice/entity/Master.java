@@ -21,6 +21,7 @@ public class Master {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public Master(String firstName, String lastName, String phoneNumber) {
