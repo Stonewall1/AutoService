@@ -7,9 +7,25 @@
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 <body>
+<h2>Admin profile</h2>
+<a th:href="@{/logout}" class="btn btn-dark">Logout</a>
+
+<h3>All masters :</h3>
+<a href="admin/addMaster.html" th:href="@{/admin/profile/addMaster}" class="btn btn-success">Add Master</a>
+<!--<ul th:each="car : ${currentUser.getCars()}">-->
+<!--    <li>-->
+<!--        <img th:src="${car.getImageUrl()}" width="100" height="100" alt="">-->
+<!--        <h5 th:text="${car.getBrand()} + ' ' + ${car.getModel()}"></h5>-->
+<!--        <h5 th:text="'VIN : ' + ${car.getVIN()}"></h5>-->
+<!--        <form th:action="@{/user/profile/deleteCar}">-->
+<!--            <input th:type="hidden" th:name="id" th:value="${car.id}">-->
+<!--            <button class="btn btn-danger">Delete</button>-->
+<!--        </form>-->
+<!--    </li>-->
+<!--</ul>-->
 
 
-
+<a href="/" class="btn btn-primary">Back</a>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
