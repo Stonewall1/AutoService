@@ -9,6 +9,7 @@ import com.autoservice.service.mapper.MasterMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +39,10 @@ public class MasterService {
     public boolean masterExists(String phoneNumber) {
         Optional<Master> byPhoneNumber = masterRepository.findByPhoneNumber(phoneNumber);
         return byPhoneNumber.isPresent();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Master> findAllMasters() {
+        return masterRepository.findAll();
     }
 }

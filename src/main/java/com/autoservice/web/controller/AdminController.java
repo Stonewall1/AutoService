@@ -3,6 +3,7 @@ package com.autoservice.web.controller;
 import com.autoservice.dto.AdminLoginDto;
 import com.autoservice.dto.MasterDto;
 import com.autoservice.entity.Admin;
+import com.autoservice.entity.Master;
 import com.autoservice.service.AdminService;
 import com.autoservice.service.MasterService;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -50,7 +52,8 @@ public class AdminController {
     }
 
     @GetMapping("/profile")
-    public String adminProfile() {
+    public String adminProfile(Model model) {
+        model.addAttribute("allMasters", masterService.findAllMasters());
         return "admin/adminProfile";
     }
 

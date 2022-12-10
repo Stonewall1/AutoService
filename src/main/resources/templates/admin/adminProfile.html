@@ -12,17 +12,15 @@
 
 <h3>All masters :</h3>
 <a href="admin/addMaster.html" th:href="@{/admin/profile/addMaster}" class="btn btn-success">Add Master</a>
-<!--<ul th:each="car : ${currentUser.getCars()}">-->
-<!--    <li>-->
-<!--        <img th:src="${car.getImageUrl()}" width="100" height="100" alt="">-->
-<!--        <h5 th:text="${car.getBrand()} + ' ' + ${car.getModel()}"></h5>-->
-<!--        <h5 th:text="'VIN : ' + ${car.getVIN()}"></h5>-->
+<ul th:each="master : ${allMasters}">
+    <li>
+        <h5 th:text="${master.getFirstName()} + ' ' + ${master.getFirstName()} + ' phoneNumber : ' + ${master.getPhoneNumber()}"></h5>
 <!--        <form th:action="@{/user/profile/deleteCar}">-->
 <!--            <input th:type="hidden" th:name="id" th:value="${car.id}">-->
 <!--            <button class="btn btn-danger">Delete</button>-->
 <!--        </form>-->
-<!--    </li>-->
-<!--</ul>-->
+    </li>
+</ul>
 
 
 <a href="/" class="btn btn-primary">Back</a>
