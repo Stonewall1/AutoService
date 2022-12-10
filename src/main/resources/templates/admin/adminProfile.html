@@ -7,23 +7,58 @@
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 <body>
-<h2>Admin profile</h2>
-<a th:href="@{/logout}" class="btn btn-dark">Logout</a>
+<div class="container">
 
-<h3>All masters :</h3>
-<a href="admin/addMaster.html" th:href="@{/admin/profile/addMaster}" class="btn btn-success">Add Master</a>
-<ul th:each="master : ${allMasters}">
-    <li>
-        <h5 th:text="${master.getFirstName()} + ' ' + ${master.getFirstName()} + ' phoneNumber : ' + ${master.getPhoneNumber()}"></h5>
-        <form th:action="@{/admin/profile/deleteMaster}">
-            <input th:type="hidden" th:name="id" th:value="${master.id}">
-            <button class="btn btn-danger">Delete</button>
-        </form>
-    </li>
-</ul>
+    <div class="row justify-content-center">
+        <div class="col-4 text-center mt-5 ">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqGVO4LU6H77StPtXekxDr7eCMJC5sRqfURLrDdoES_i-U2uuqlxrOViTXuL_MViGQXjE&usqp=CAU"
+                 width="100"
+                 height="100" alt="">
+            <h2>Admin profile
+                <a th:href="@{/logout}" class="btn btn-outline-dark">Logout</a>
+            </h2>
+        </div>
+    </div>
 
+    <div class="container text-center mt-5">
+        <div class="row">
+            <!-- LEFT COLUMN(MASTERS) -->
+            <div class="col">
+                <h3>
+                    <a href="admin/addMaster.html" th:href="@{/admin/profile/addMaster}" class="btn btn-success">Add
+                        Master</a>
+                    All masters :
+                </h3>
+                <ul th:each="master : ${allMasters}">
+                    <li>
+                        <form th:action="@{/admin/profile/deleteMaster}">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 th:text="${master.getFirstName()} + ' ' + ${master.getLastName()} + '  ' + ${master.getPhoneNumber()}"></h5>
+                                    <input th:type="hidden" th:name="id" th:value="${master.id}">
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <!-- RIGHT COLUMN -->
+            <div class="col">
+                RESERVED
+            </div>
+        </div>
+    </div>
 
-<a href="/" class="btn btn-primary">Back</a>
+    <div class="row justify-content-center mt-5">
+        <div class="col-4 text-center mt-5 ">
+            <a href="/" class="btn btn-primary">Back to Homepage</a>
+        </div>
+    </div>
+
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
