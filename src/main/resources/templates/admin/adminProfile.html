@@ -15,10 +15,10 @@
 <ul th:each="master : ${allMasters}">
     <li>
         <h5 th:text="${master.getFirstName()} + ' ' + ${master.getFirstName()} + ' phoneNumber : ' + ${master.getPhoneNumber()}"></h5>
-<!--        <form th:action="@{/user/profile/deleteCar}">-->
-<!--            <input th:type="hidden" th:name="id" th:value="${car.id}">-->
-<!--            <button class="btn btn-danger">Delete</button>-->
-<!--        </form>-->
+        <form th:action="@{/admin/profile/deleteMaster}">
+            <input th:type="hidden" th:name="id" th:value="${master.id}">
+            <button class="btn btn-danger">Delete</button>
+        </form>
     </li>
 </ul>
 

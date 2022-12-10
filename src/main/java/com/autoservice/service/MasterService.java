@@ -29,10 +29,11 @@ public class MasterService {
         masterRepository.save(master);
     }
 
-    public Master findByPhoneNumber(String phoneNumber) {
-        Optional<Master> byPhoneNumber = masterRepository.findByPhoneNumber(phoneNumber);
-        if (byPhoneNumber.isPresent()) {
-            return byPhoneNumber.get();
+    @Transactional(readOnly = true)
+    public Master findById(long id) {
+        Optional<Master> byId = masterRepository.findById(id);
+        if (byId.isPresent()) {
+            return byId.get();
         } else throw new MasterNotFoundException();
     }
 
@@ -44,5 +45,9 @@ public class MasterService {
     @Transactional(readOnly = true)
     public List<Master> findAllMasters() {
         return masterRepository.findAll();
+    }
+
+    public void deleteById(long id) {
+        masterRepository.deleteById(id);
     }
 }
