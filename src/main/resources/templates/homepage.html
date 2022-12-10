@@ -13,7 +13,9 @@
             <img src="https://i.pinimg.com/originals/95/d8/13/95d8138735a09aec477bfd6b60cd7e60.png" width="60"
                  height="60">
             <h1>Auto Service</h1>
-            <a href="admin/adminProfile.html" th:href="@{admin/profile}" class="btn btn-danger">Admin</a>
+            <a th:if="${currentAdmin != null}">
+                <a href="admin/adminProfile.html" th:href="@{admin/profile}" class="btn btn-danger">Admin</a>
+            </a>
             <a href="userProfile.html" th:href="@{user/profile}" class="btn btn-success">User profile</a>
             <a href="registration.html" th:href="@{user/registration}" class="btn btn-primary">Register new account</a>
             <br>

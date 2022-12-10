@@ -1,5 +1,6 @@
 package com.autoservice.web.controller;
 
+import com.autoservice.entity.Admin;
 import com.autoservice.entity.User;
 import com.autoservice.service.AdminService;
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,11 @@ public class AutoserviceController {
 
     @GetMapping
     public String homepage(Model model, HttpSession session) {
-        if(!adminService.isCreated()){
+        if (!adminService.isCreated()) {
             adminService.createAdmin();
         }
         model.addAttribute("currentUser", (User) session.getAttribute("currentUser"));
+        model.addAttribute("currentAdmin", (Admin) session.getAttribute("currentAdmin"));
         return "homepage";
     }
 
