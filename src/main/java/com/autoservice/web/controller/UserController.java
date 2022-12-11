@@ -149,8 +149,6 @@ public class UserController {
         orderDto.setOrderCreation(LocalDateTime.now());
 
 
-
-        System.out.println(orderDto);
         return "redirect:/";
     }
 }

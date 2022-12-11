@@ -13,7 +13,7 @@
         <div class="col-4 text-center mt-5 ">
             <h3>Record for repair</h3>
             <form th:action="@{/user/record}" th:object="${newOrder}" method="post">
-                <!--CAR RADIOBOX -->
+                <!-- CAR RADIOBOX -->
                 <h5 th:text="'Select a car'"></h5>
                 <div th:each="c : ${userCars}">
                     <div class="custom-control custom-radio custom-control-inline">
@@ -22,8 +22,17 @@
                     </div>
                     <br>
                 </div>
-
-
+                <!-- MASTERS RADIOBOX -->
+                <h5 th:text="'Select a master'"></h5>
+                <div th:each="m : ${masters}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input th:type="radio" th:field="*{masterID}" th:text="${m.firstName} + ' ' + ${m.lastName}"
+                               th:value="${m.id}" class="custom-control-input">
+                    </div>
+                    <br>
+                </div>
+                <!-- REPAIR START TIME -->
+                <h5 th:text="'Select an appointment time'"></h5>
                 <input type="datetime-local" th:field="*{repairStart}" class="form-control" placeholder="Repair start"/>
                 <br>
                 <p th:if="${#fields.hasErrors('repairStart')}" th:errors="*{repairStart}" style="color: red"></p>
