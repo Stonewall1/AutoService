@@ -13,15 +13,22 @@
         <div class="col-4 text-center mt-5 ">
             <h3>Record for repair</h3>
             <form th:action="@{/user/record}" th:object="${newOrder}" method="post">
-
-
+                <!--CAR RADIOBOX -->
+                <h5 th:text="'Select a car'"></h5>
+                <div th:each="c : ${userCars}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input th:type="radio" th:field="*{carID}" th:text="${c.brand} + ' ' + ${c.model}"
+                               th:value="${c.id}" class="custom-control-input">
+                    </div>
+                    <br>
+                </div>
 
 
                 <input type="datetime-local" th:field="*{repairStart}" class="form-control" placeholder="Repair start"/>
                 <br>
                 <p th:if="${#fields.hasErrors('repairStart')}" th:errors="*{repairStart}" style="color: red"></p>
                 <br>
-                <input th:type="hidden" th:name="userId" th:value="${userId}">
+                <input th:type="hidden" th:name="userID" th:value="${userID}">
                 <button class="btn btn-success">Record</button>
                 <p th:text="${message}" style="color: red"></p>
             </form>

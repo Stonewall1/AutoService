@@ -35,4 +35,17 @@ public class Car {
         this.engineVolume = engineVolume;
         this.VIN = VIN;
     }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", colour='" + colour + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", engineVolume=" + engineVolume +
+                ", VIN='" + VIN + '\'' +
+                '}';
+    }
 }

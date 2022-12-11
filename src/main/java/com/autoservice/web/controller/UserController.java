@@ -4,6 +4,7 @@ import com.autoservice.dto.*;
 import com.autoservice.entity.Car;
 import com.autoservice.entity.User;
 import com.autoservice.service.CarService;
+import com.autoservice.service.MasterService;
 import com.autoservice.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,12 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
     private final CarService carService;
+    private final MasterService masterService;
 
-    public UserController(UserService userService, CarService carService) {
+    public UserController(UserService userService, CarService carService, MasterService masterService) {
         this.userService = userService;
         this.carService = carService;
+        this.masterService = masterService;
     }
 
 
@@ -129,12 +132,15 @@ public class UserController {
 
     @GetMapping("/record")
     public String recordForRepair(@ModelAttribute("newOrder") OrderDto orderDto, HttpSession session, Model model) {
-        model.addAttribute("userId", ((User) session.getAttribute("currentUser")).getId());
+        long userID = ((User) session.getAttribute("currentUser")).getId();
+        model.addAttribute("userID", userID);
+        model.addAttribute("masters", masterService.findAllMasters());
+        model.addAttribute("userCars", carService.findAllCarsByUserId(userID));
         return "recordForRepair";
     }
 
     @PostMapping("/record")
-    public String recordForRepair(@Valid @ModelAttribute("newOrder") OrderDto orderDto, BindingResult bindingResult, long userID, HttpSession session) {
+    public String recordForRepair(@ModelAttribute("newOrder") OrderDto orderDto, BindingResult bindingResult, long userID, HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "recordForRepair";
         }
@@ -143,6 +149,8 @@ public class UserController {
         orderDto.setOrderCreation(LocalDateTime.now());
 
 
+
+        System.out.println(orderDto);
         return "redirect:/";
     }
 }

@@ -9,6 +9,7 @@ import com.autoservice.service.mapper.CarMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,5 +44,10 @@ public class CarService {
 
     public void deleteCar(Car car) {
         carRepository.delete(car);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Car> findAllCarsByUserId(long id) {
+        return carRepository.findAllByOwnerId(id);
     }
 }
