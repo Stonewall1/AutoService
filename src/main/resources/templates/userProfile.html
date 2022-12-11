@@ -29,9 +29,9 @@
             <!-- LEFT COLUMN(CREDENTIALS) -->
             <div class="col">
                 <h3>Your credentials :</h3>
-                <p th:text="${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></p>
-                <p th:text="'Email : ' + ${currentUser.getEmail()}"></p>
-                <p th:text="'Phone number : ' + ${currentUser.getPhoneNumber()}"></p>
+                <h5 th:text="${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></h5>
+                <h5 th:text="'Email : ' + ${currentUser.getEmail()}"></h5>
+                <h5 th:text="'Phone number : ' + ${currentUser.getPhoneNumber()}"></h5>
             </div>
             <!-- MIDDLE COLUMN(CARS) -->
             <div class="col">
@@ -50,7 +50,35 @@
             </div>
             <!-- RIGHT COLUMN(ORDERS) -->
             <div class="col">
-                RESERVED
+                <h3>Your orders :</h3>
+                <ul th:each="order : ${userOrders}">
+                    <li>
+                        <!-- INFO -->
+                        <h5 th:text="'Order ID : ' + ${order.id}"></h5>
+                        <h5 th:text="'Car : ' + ${order.car.brand} + '  ' + ${order.car.model}"></h5>
+                        <h5 th:text="'Master : ' + ${order.master.firstName} + '  ' + ${order.master.lastName} + ' , ' + ${order.master.phoneNumber}"></h5>
+                        <h5 th:text="'Repair start : ' + ${order.repairStart}"></h5>
+                        <div th:if="${order.repairFinish != null}">
+                            <h5 th:text="'Repair finish : ' + ${order.repairFinish}"></h5>
+                        </div>
+                        <div th:if="${!order.operations.isEmpty()}">
+                            <h5 th:text="'Operations : ' + ${order.operations}"></h5>
+                        </div>
+                        <div th:if="${order.totalPrice != null}">
+                            <h5 th:text="'Total price : ' + ${order.totalPrice}"></h5>
+                        </div>
+                        <!-- STATUS -->
+                        <div th:if="${order.orderStatus.name() == 'PENDING'}">
+                            <h5 th:text="'Status : ' + ${order.orderStatus}" style="color: red"></h5>
+                        </div>
+                        <div th:if="${order.orderStatus.name() == 'REPAIR_IN_PROGRESS'}">
+                            <h5 th:text="'Status : ' + ${order.orderStatus}" style="color: yellow"></h5>
+                        </div>
+                        <div th:if="${order.orderStatus.name() == 'COMPLETED'}">
+                            <h5 th:text="'Status : ' + ${order.orderStatus}" style="color: green"></h5>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

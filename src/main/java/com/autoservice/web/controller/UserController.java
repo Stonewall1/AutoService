@@ -83,6 +83,7 @@ public class UserController {
         }
         Optional<User> byEmail = userService.findByEmail(currentUser.getEmail());
         if (byEmail.isPresent()) {
+            model.addAttribute("userOrders", orderService.findAllOrdersByUserId(byEmail.get().getId()));
             model.addAttribute("currentUser", byEmail.get());
             return "userProfile";
         }

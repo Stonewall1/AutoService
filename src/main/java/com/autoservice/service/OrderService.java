@@ -10,6 +10,8 @@ import com.autoservice.service.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class OrderService {
@@ -27,5 +29,10 @@ public class OrderService {
 
     public Order mapOrderDtoToOrder(OrderDto orderDto, User user, Master master, Car car) {
         return orderMapper.convertOrderDtoToOrder(orderDto, user, master, car);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Order> findAllOrdersByUserId(long id) {
+        return orderRepository.findAllByCarOwnerId(id);
     }
 }
