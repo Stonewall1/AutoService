@@ -2,9 +2,11 @@ package com.autoservice.web.controller;
 
 import com.autoservice.dto.*;
 import com.autoservice.entity.Car;
+import com.autoservice.entity.Order;
 import com.autoservice.entity.User;
 import com.autoservice.service.CarService;
 import com.autoservice.service.MasterService;
+import com.autoservice.service.OrderService;
 import com.autoservice.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
@@ -22,11 +23,13 @@ public class UserController {
     private final UserService userService;
     private final CarService carService;
     private final MasterService masterService;
+    private final OrderService orderService;
 
-    public UserController(UserService userService, CarService carService, MasterService masterService) {
+    public UserController(UserService userService, CarService carService, MasterService masterService, OrderService orderService) {
         this.userService = userService;
         this.carService = carService;
         this.masterService = masterService;
+        this.orderService = orderService;
     }
 
 
@@ -140,15 +143,15 @@ public class UserController {
     }
 
     @PostMapping("/record")
-    public String recordForRepair(@ModelAttribute("newOrder") OrderDto orderDto, BindingResult bindingResult, long userID, HttpSession session) {
+    public String recordForRepair(@ModelAttribute("newOrder") OrderDto orderDto, BindingResult bindingResult, long userID) {
         if (bindingResult.hasErrors()) {
             return "recordForRepair";
         }
-        User byId = userService.findById(userID);
-        orderDto.setCarOwner(byId);
-        orderDto.setOrderCreation(LocalDateTime.now());
-
-
+        Order order = orderService.mapOrderDtoToOrder(orderDto,
+                userService.findById(userID),
+                masterService.findById(orderDto.getMasterID()),
+                carService.findById(orderDto.getCarID()));
+        orderService.save(order);
         return "redirect:/";
     }
 }
