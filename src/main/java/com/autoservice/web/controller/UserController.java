@@ -1,9 +1,6 @@
 package com.autoservice.web.controller;
 
-import com.autoservice.dto.CarDto;
-import com.autoservice.dto.LoginDto;
-import com.autoservice.dto.ProfileEditDto;
-import com.autoservice.dto.RegistrationDto;
+import com.autoservice.dto.*;
 import com.autoservice.entity.Car;
 import com.autoservice.entity.User;
 import com.autoservice.service.CarService;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
@@ -127,5 +125,24 @@ public class UserController {
 
         userService.update(userById);
         return "redirect:/user/profile";
+    }
+
+    @GetMapping("/record")
+    public String recordForRepair(@ModelAttribute("newOrder") OrderDto orderDto, HttpSession session, Model model) {
+        model.addAttribute("userId", ((User) session.getAttribute("currentUser")).getId());
+        return "recordForRepair";
+    }
+
+    @PostMapping("/record")
+    public String recordForRepair(@Valid @ModelAttribute("newOrder") OrderDto orderDto, BindingResult bindingResult, long userID, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "recordForRepair";
+        }
+        User byId = userService.findById(userID);
+        orderDto.setCarOwner(byId);
+        orderDto.setOrderCreation(LocalDateTime.now());
+
+
+        return "redirect:/";
     }
 }

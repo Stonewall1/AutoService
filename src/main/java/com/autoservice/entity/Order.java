@@ -22,17 +22,25 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
-    private Master master;
-    @ManyToOne
     private User carOwner;
     @ManyToOne
     private Car car;
+    @ManyToOne
+    private Master master;
     @ManyToMany
     private List<Operation> operations;
     private BigDecimal totalPrice;
-    private LocalDateTime orderCreation;
     private LocalDateTime repairStart;
     private LocalDateTime repairFinish;
+    private LocalDateTime orderCreation;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
+    public Order(User carOwner, Car car, Master master, LocalDateTime repairStart, LocalDateTime orderCreation) {
+        this.carOwner = carOwner;
+        this.car = car;
+        this.master = master;
+        this.repairStart = repairStart;
+        this.orderCreation = orderCreation;
+    }
 }
