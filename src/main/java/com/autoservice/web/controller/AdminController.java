@@ -5,6 +5,7 @@ import com.autoservice.dto.MasterDto;
 import com.autoservice.entity.Admin;
 import com.autoservice.service.AdminService;
 import com.autoservice.service.MasterService;
+import com.autoservice.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,10 +23,12 @@ import java.util.Optional;
 public class AdminController {
     private final AdminService adminService;
     private final MasterService masterService;
+    private final OrderService orderService;
 
-    public AdminController(AdminService adminService, MasterService masterService) {
+    public AdminController(AdminService adminService, MasterService masterService, OrderService orderService) {
         this.adminService = adminService;
         this.masterService = masterService;
+        this.orderService = orderService;
     }
 
 
@@ -52,6 +55,7 @@ public class AdminController {
     @GetMapping("/profile")
     public String adminProfile(Model model) {
         model.addAttribute("allMasters", masterService.findAllMasters());
+        model.addAttribute("allOrders", orderService.findAllOrders());
         return "admin/adminProfile";
     }
 
@@ -76,6 +80,20 @@ public class AdminController {
     @GetMapping("/profile/deleteMaster")
     public String deleteMaster(long id) {
         masterService.deleteById(id);
+        return "redirect:/admin/profile";
+    }
+
+    /**
+     * TODO
+     */
+    @GetMapping("/profile/manageOrder")
+    public String manageOrder(Model model) {
+        return "admin/orderPage";
+    }
+
+    @PostMapping("/profile/manageOrder")
+    public String manageOrder() {
+
         return "redirect:/admin/profile";
     }
 }

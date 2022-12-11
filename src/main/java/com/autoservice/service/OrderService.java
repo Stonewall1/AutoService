@@ -35,4 +35,9 @@ public class OrderService {
     public List<Order> findAllOrdersByUserId(long id) {
         return orderRepository.findAllByCarOwnerId(id);
     }
+
+    @Transactional(readOnly = true)
+    public List<Order> findAllOrders() {
+        return orderRepository.findAll();
+    }
 }

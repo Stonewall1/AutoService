@@ -45,9 +45,34 @@
                     </li>
                 </ul>
             </div>
-            <!-- RIGHT COLUMN -->
+            <!-- RIGHT COLUMN(ORDERS) -->
             <div class="col">
-                RESERVED
+                <h3>All orders :</h3>
+                <ul th:each="order : ${allOrders}">
+                    <li>
+                        <form th:action="@{/admin/profile/manageOrder}">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 th:text="'Order ID : ' + ${order.id}"></h5>
+                                    <!-- STATUS -->
+                                    <div th:if="${order.orderStatus.name() == 'PENDING'}">
+                                        <h5 th:text="'Status : ' + ${order.orderStatus}" style="color: red"></h5>
+                                    </div>
+                                    <div th:if="${order.orderStatus.name() == 'REPAIR_IN_PROGRESS'}">
+                                        <h5 th:text="'Status : ' + ${order.orderStatus}" style="color: yellow"></h5>
+                                    </div>
+                                    <div th:if="${order.orderStatus.name() == 'COMPLETED'}">
+                                        <h5 th:text="'Status : ' + ${order.orderStatus}" style="color: green"></h5>
+                                    </div>
+                                    <input th:type="hidden" th:name="id" th:value="${order.id}">
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-warning">Manage order</button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
