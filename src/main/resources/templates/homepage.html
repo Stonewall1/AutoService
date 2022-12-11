@@ -13,7 +13,7 @@
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxGbURBS_1RCMY_Lw8tw2curgfM18E8qY0PQ&usqp=CAU" width="100"
                  height="100" alt="">
             <h1>Auto Service</h1>
-            <a th:if="${currentAdmin != null}">
+            <a th:if="${currentAdmin != null && currentUser == null}">
                 <a href="admin/adminProfile.html" th:href="@{admin/profile}" class="btn btn-danger">Admin</a>
             </a>
             <a href="userProfile.html" th:href="@{user/profile}" class="btn btn-success">User profile</a>
