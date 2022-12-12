@@ -3,16 +3,14 @@ package com.autoservice.web.controller;
 import com.autoservice.dto.AdminLoginDto;
 import com.autoservice.dto.MasterDto;
 import com.autoservice.entity.Admin;
+import com.autoservice.entity.Order;
 import com.autoservice.service.AdminService;
 import com.autoservice.service.MasterService;
 import com.autoservice.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -83,17 +81,10 @@ public class AdminController {
         return "redirect:/admin/profile";
     }
 
-    /**
-     * TODO
-     */
-    @GetMapping("/profile/manageOrder")
-    public String manageOrder(Model model) {
+    @GetMapping("/profile/manageOrder/{orderID}")
+    public String manageOrder(@PathVariable("orderID") long orderID, Model model) {
+        Order orderByID = orderService.findById(orderID);
+        model.addAttribute("orderByID", orderByID);
         return "admin/orderPage";
-    }
-
-    @PostMapping("/profile/manageOrder")
-    public String manageOrder() {
-
-        return "redirect:/admin/profile";
     }
 }

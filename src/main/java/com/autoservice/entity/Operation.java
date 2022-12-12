@@ -24,4 +24,12 @@ public class Operation {
     @ManyToOne
     private Order order;
     private BigDecimal price;
+
+    @Override
+    public String toString() {
+        return "Operation{" +
+                "operationDescription='" + operationDescription + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

@@ -50,7 +50,7 @@
                 <h3>All orders :</h3>
                 <ul th:each="order : ${allOrders}">
                     <li>
-                        <form th:action="@{/admin/profile/manageOrder}">
+                        <form th:action="@{/admin/profile/manageOrder/{orderID}(orderID = ${order.id})}">
                             <div class="row">
                                 <div class="col">
                                     <h5 th:text="'Order ID : ' + ${order.id}"></h5>
@@ -67,7 +67,7 @@
                                     <input th:type="hidden" th:name="id" th:value="${order.id}">
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-warning">Manage order</button>
+                                    <button class="btn btn-info">Manage order</button>
                                 </div>
                             </div>
                         </form>
