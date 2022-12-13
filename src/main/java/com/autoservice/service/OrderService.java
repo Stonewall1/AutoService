@@ -1,10 +1,7 @@
 package com.autoservice.service;
 
 import com.autoservice.dto.OrderDto;
-import com.autoservice.entity.Car;
-import com.autoservice.entity.Master;
-import com.autoservice.entity.Order;
-import com.autoservice.entity.User;
+import com.autoservice.entity.*;
 import com.autoservice.exception.OrderNotFoundException;
 import com.autoservice.repository.OrderRepository;
 import com.autoservice.service.mapper.OrderMapper;
@@ -29,6 +26,10 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
+    public Order update(Order order) {
+        return orderRepository.save(order);
+    }
+
     public Order mapOrderDtoToOrder(OrderDto orderDto, User user, Master master, Car car) {
         return orderMapper.convertOrderDtoToOrder(orderDto, user, master, car);
     }
@@ -49,5 +50,10 @@ public class OrderService {
         if (byId.isPresent()) {
             return byId.get();
         } else throw new OrderNotFoundException();
+    }
+
+    public Order addOperationToList(Order order, Operation operation) {
+        order.getOperations().add(operation);
+        return order;
     }
 }

@@ -11,7 +11,7 @@
 
     <div class="row justify-content-center">
         <div class="col-4 text-center mt-5 ">
-            <h2>Manage order info</h2>
+            <h2 th:text="'Order ID : ' + ${orderByID.id}"></h2>
         </div>
     </div>
 
@@ -19,36 +19,40 @@
         <div class="row">
             <!-- LEFT COLUMN(ORDER INFO) -->
             <div class="col">
-                <ul th:each="order : ${orderByID}">
-                    <li>
-                        <!-- INFO -->
-                        <h5 th:text="'Order ID : ' + ${orderByID.id}"></h5>
-                        <h5 th:text="'Car owner : ' + ${orderByID.carOwner.firstName} + ' ' + ${orderByID.carOwner.lastName} + ' , ' + ${orderByID.carOwner.phoneNumber}"></h5>
-                        <h5 th:text="'Car : ' + ${orderByID.car.brand} + '  ' + ${orderByID.car.model} + ' , ' + ${orderByID.car.VIN}"></h5>
-                        <h5 th:text="'Master : ' + ${orderByID.master.firstName} + '  ' + ${orderByID.master.lastName} + ' , ' + ${orderByID.master.phoneNumber}"></h5>
-                        <h5 th:text="'Order creation time : ' + ${orderByID.orderCreation}"></h5>
-                        <h5 th:text="'Repair start : ' + ${orderByID.repairStart}"></h5>
+                <!-- INFO -->
+                <h5 th:text="'Car owner : ' + ${orderByID.carOwner.firstName} + ' ' + ${orderByID.carOwner.lastName} + ' , ' + ${orderByID.carOwner.phoneNumber}"></h5>
+                <h5 th:text="'Car : ' + ${orderByID.car.brand} + '  ' + ${orderByID.car.model} + ' , ' + ${orderByID.car.VIN}"></h5>
+                <h5 th:text="'Master : ' + ${orderByID.master.firstName} + '  ' + ${orderByID.master.lastName} + ' , ' + ${orderByID.master.phoneNumber}"></h5>
+                <h5 th:text="'Order creation time : ' + ${orderByID.orderCreation}"></h5>
+                <h5 th:text="'Repair start : ' + ${orderByID.repairStart}"></h5>
 
-                        <h5 th:text="'Repair finish : ' + ${orderByID.repairFinish}"></h5>
-                        <h5 th:text="'Operations : ' + ${orderByID.operations}"></h5>
-                        <h5 th:text="'Total price : ' + ${orderByID.totalPrice}"></h5>
-
-                        <!-- STATUS -->
-                        <div th:if="${orderByID.orderStatus.name() == 'PENDING'}">
-                            <h5 th:text="'Status : ' + ${orderByID.orderStatus}" style="color: red"></h5>
-                        </div>
-                        <div th:if="${orderByID.orderStatus.name() == 'REPAIR_IN_PROGRESS'}">
-                            <h5 th:text="'Status : ' + ${orderByID.orderStatus}" style="color: yellow"></h5>
-                        </div>
-                        <div th:if="${orderByID.orderStatus.name() == 'COMPLETED'}">
-                            <h5 th:text="'Status : ' + ${orderByID.orderStatus}" style="color: green"></h5>
-                        </div>
-                    </li>
-                </ul>
+                <h5 th:text="'Repair finish : ' + ${orderByID.repairFinish}"></h5>
+                <!-- STATUS -->
+                <div th:if="${orderByID.orderStatus.name() == 'PENDING'}">
+                    <h5 th:text="'Status : ' + ${orderByID.orderStatus}" style="color: red"></h5>
+                </div>
+                <div th:if="${orderByID.orderStatus.name() == 'REPAIR_IN_PROGRESS'}">
+                    <h5 th:text="'Status : ' + ${orderByID.orderStatus}" style="color: yellow"></h5>
+                </div>
+                <div th:if="${orderByID.orderStatus.name() == 'COMPLETED'}">
+                    <h5 th:text="'Status : ' + ${orderByID.orderStatus}" style="color: green"></h5>
+                </div>
             </div>
             <!-- RIGHT COLUMN -->
             <div class="col">
-                RESERVED
+                <h3>
+                    <a href="admin/addOperation.html"
+                       th:href="@{/admin/profile/manageOrder/{orderID}/addOperation(orderID = ${orderByID.id})}"
+                       class="btn btn-success">Add operation</a>
+                    Operations :
+                </h3>
+                <ul th:each="operation : ${orderByID.operations}">
+                    <li>
+                        <h5 th:text="'Operation description : ' + ${operation.operationDescription}"></h5>
+                        <h5 th:text="'Operation price : ' + ${operation.price}"></h5>
+                    </li>
+                </ul>
+                <h5 th:text="'Total price : ' + ${orderByID.totalPrice}"></h5>
             </div>
         </div>
     </div>

@@ -25,6 +25,11 @@ public class Operation {
     private Order order;
     private BigDecimal price;
 
+    public Operation(String operationDescription, BigDecimal price) {
+        this.operationDescription = operationDescription;
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "Operation{" +

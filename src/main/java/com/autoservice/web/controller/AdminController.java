@@ -2,10 +2,13 @@ package com.autoservice.web.controller;
 
 import com.autoservice.dto.AdminLoginDto;
 import com.autoservice.dto.MasterDto;
+import com.autoservice.dto.OperationDto;
 import com.autoservice.entity.Admin;
+import com.autoservice.entity.Operation;
 import com.autoservice.entity.Order;
 import com.autoservice.service.AdminService;
 import com.autoservice.service.MasterService;
+import com.autoservice.service.OperationService;
 import com.autoservice.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +25,13 @@ public class AdminController {
     private final AdminService adminService;
     private final MasterService masterService;
     private final OrderService orderService;
+    private final OperationService operationService;
 
-    public AdminController(AdminService adminService, MasterService masterService, OrderService orderService) {
+    public AdminController(AdminService adminService, MasterService masterService, OrderService orderService, OperationService operationService) {
         this.adminService = adminService;
         this.masterService = masterService;
         this.orderService = orderService;
+        this.operationService = operationService;
     }
 
 
@@ -86,5 +91,25 @@ public class AdminController {
         Order orderByID = orderService.findById(orderID);
         model.addAttribute("orderByID", orderByID);
         return "admin/orderPage";
+    }
+
+    @GetMapping("/profile/manageOrder/{orderID}/addOperation")
+    public String addOperation(@ModelAttribute("newOperation") OperationDto operationDto, @PathVariable("orderID") long orderID, Model model) {
+        model.addAttribute("id", orderID);
+        return "admin/addOperation";
+    }
+
+    @PostMapping("/profile/manageOrder/{orderID}/addOperation")
+    public String addOperation(@Valid @ModelAttribute("newOperation") OperationDto operationDto, BindingResult bindingResult, @PathVariable("orderID") long orderID) {
+        if (bindingResult.hasErrors()) {
+            //todo
+            return "redirect:/admin/profile/manageOrder/" + orderID + "/addOperation";
+        }
+        Operation operation = operationService.mapOperationDtoToOperation(operationDto, orderService.findById(orderID));
+        operationService.save(operation);
+
+        Order order = orderService.addOperationToList(orderService.findById(orderID), operation);
+        orderService.update(order);
+        return "redirect:/admin/profile/manageOrder/" + orderID;
     }
 }
