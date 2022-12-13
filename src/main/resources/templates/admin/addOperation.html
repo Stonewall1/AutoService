@@ -12,7 +12,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col-4 text-center mt-5 ">
             <h3>Add operation</h3>
-            <form th:action="@{/admin/profile/manageOrder/{orderID}/addOperation(orderID=${id})}"
+            <form th:action="@{/admin/profile/manageOrder/{orderID}/addOperation(orderID=${orderID})}"
                   th:object="${newOperation}" method="post">
                 <textarea type="text" th:field="*{operationDescription}" class="form-control" th:rows="5"
                           placeholder="Description"></textarea>
@@ -28,7 +28,7 @@
                 <button class="btn btn-success">Add operation</button>
             </form>
             <br>
-            <a href="/admin/profile" class="btn btn-primary">Back to profile</a>
+            <a href="/admin/profile"  class="btn btn-primary">Back to profile</a>
         </div>
     </div>
 </div>

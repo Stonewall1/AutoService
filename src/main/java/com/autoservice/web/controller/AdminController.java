@@ -94,20 +94,17 @@ public class AdminController {
     }
 
     @GetMapping("/profile/manageOrder/{orderID}/addOperation")
-    public String addOperation(@ModelAttribute("newOperation") OperationDto operationDto, @PathVariable("orderID") long orderID, Model model) {
-        model.addAttribute("id", orderID);
+    public String addOperation(@ModelAttribute("newOperation") OperationDto operationDto, @PathVariable("orderID") long orderID) {
         return "admin/addOperation";
     }
 
     @PostMapping("/profile/manageOrder/{orderID}/addOperation")
     public String addOperation(@Valid @ModelAttribute("newOperation") OperationDto operationDto, BindingResult bindingResult, @PathVariable("orderID") long orderID) {
         if (bindingResult.hasErrors()) {
-            //todo
-            return "redirect:/admin/profile/manageOrder/" + orderID + "/addOperation";
+            return "admin/addOperation";
         }
         Operation operation = operationService.mapOperationDtoToOperation(operationDto, orderService.findById(orderID));
         operationService.save(operation);
-
         Order order = orderService.addOperationToList(orderService.findById(orderID), operation);
         orderService.update(order);
         return "redirect:/admin/profile/manageOrder/" + orderID;
