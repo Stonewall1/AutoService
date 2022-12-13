@@ -8,6 +8,7 @@ import com.autoservice.service.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,15 @@ public class OrderService {
 
     public Order addOperationToList(Order order, Operation operation) {
         order.getOperations().add(operation);
+        countOrderTotalPrice(order);
         return order;
+    }
+
+    private void countOrderTotalPrice(Order order) {
+        BigDecimal bd = new BigDecimal("0");
+        for (Operation operation : order.getOperations()) {
+            bd = bd.add(operation.getPrice());
+        }
+        order.setTotalPrice(bd);
     }
 }

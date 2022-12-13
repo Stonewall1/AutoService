@@ -62,7 +62,12 @@
                             <h5 th:text="'Repair finish : ' + ${order.repairFinish}"></h5>
                         </div>
                         <div th:if="${!order.operations.isEmpty()}">
-                            <h5 th:text="'Operations : ' + ${order.operations}"></h5>
+                            <ul th:each="operation : ${order.operations}">
+                                <li>
+                                    <h5 th:text="'Operation description : ' + ${operation.operationDescription}"></h5>
+                                    <h5 th:text="'Operation price : ' + ${operation.price}"></h5>
+                                </li>
+                            </ul>
                         </div>
                         <div th:if="${order.totalPrice != null}">
                             <h5 th:text="'Total price : ' + ${order.totalPrice}"></h5>
