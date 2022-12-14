@@ -1,6 +1,7 @@
 package com.autoservice.service.mapper;
 
 import com.autoservice.dto.OrderDto;
+import com.autoservice.dto.PreparedOrderInfoDto;
 import com.autoservice.entity.*;
 import org.springframework.stereotype.Component;
 
@@ -17,5 +18,9 @@ public class OrderMapper {
         order.setOrderCreation(LocalDateTime.now());
         order.setOrderStatus(OrderStatus.PENDING);
         return order;
+    }
+
+    public PreparedOrderInfoDto prepareOrderInfo(Order order) {
+        return new PreparedOrderInfoDto(order.getRepairFinish(), order.getOrderStatus());
     }
 }

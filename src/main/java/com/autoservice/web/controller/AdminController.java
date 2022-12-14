@@ -3,6 +3,7 @@ package com.autoservice.web.controller;
 import com.autoservice.dto.AdminLoginDto;
 import com.autoservice.dto.MasterDto;
 import com.autoservice.dto.OperationDto;
+import com.autoservice.dto.PreparedOrderInfoDto;
 import com.autoservice.entity.Admin;
 import com.autoservice.entity.Operation;
 import com.autoservice.entity.Order;
@@ -111,14 +112,19 @@ public class AdminController {
     }
 
     @GetMapping("/profile/manageOrder/{orderID}/editOrder")
-    public String editOrder(@PathVariable("orderID") long orderID) {
-
+    public String editOrder(@PathVariable("orderID") long orderID, Model model) {
+        Order byId = orderService.findById(orderID);
+        model.addAttribute("preparedOrderInfo", orderService.prepareOrderInfo(byId));
         return "admin/editOrder";
     }
 
     @PostMapping("/profile/manageOrder/{orderID}/editOrder")
-    public String editOrder(@PathVariable("orderID") long orderID, Model model) {
-
+    public String editOrder(@Valid @ModelAttribute("preparedOrderInfo") PreparedOrderInfoDto preparedOrderInfoDto, BindingResult bindingResult, @PathVariable("orderID") long orderID) {
+        if (bindingResult.hasErrors()) {
+            return "admin/editOrder";
+        }
+        Order byId = orderService.findById(orderID);
+        orderService.editOrderInfo(byId, preparedOrderInfoDto);
         return "redirect:/admin/profile/manageOrder/" + orderID;
     }
 }

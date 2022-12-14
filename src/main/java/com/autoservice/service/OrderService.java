@@ -1,6 +1,7 @@
 package com.autoservice.service;
 
 import com.autoservice.dto.OrderDto;
+import com.autoservice.dto.PreparedOrderInfoDto;
 import com.autoservice.entity.*;
 import com.autoservice.exception.OrderNotFoundException;
 import com.autoservice.repository.OrderRepository;
@@ -65,5 +66,15 @@ public class OrderService {
             bd = bd.add(operation.getPrice());
         }
         order.setTotalPrice(bd);
+    }
+
+    public PreparedOrderInfoDto prepareOrderInfo(Order order) {
+        return orderMapper.prepareOrderInfo(order);
+    }
+
+    public Order editOrderInfo(Order order, PreparedOrderInfoDto preparedOrderInfoDto) {
+        order.setRepairFinish(preparedOrderInfoDto.getRepairFinish());
+        order.setOrderStatus(preparedOrderInfoDto.getOrderStatus());
+        return update(order);
     }
 }

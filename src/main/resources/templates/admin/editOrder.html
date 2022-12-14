@@ -8,7 +8,33 @@
 </head>
 <body>
 
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-4 text-center mt-5 ">
+            <h3>Edit order info</h3>
+            <form th:action="@{/admin/profile/manageOrder/{orderID}/editOrder(orderID=${orderID})}"
+                  th:object="${preparedOrderInfo}" method="post">
+                <input type="datetime-local" th:field="*{repairFinish}" class="form-control"
+                       placeholder="Repair finish">
+                <br>
+                <p th:if="${#fields.hasErrors('repairFinish')}" th:errors="*{repairFinish}" style="color: red"></p>
+                <br>
 
+                <h6 th:text="'Edit order status'"></h6>
+                <select th:field="*{orderStatus}" class="btn btn-secondary dropdown-toggle">
+                    <option th:value="'PENDING'" th:text="PENDING"></option>
+                    <option th:value="'REPAIR_IN_PROGRESS'" th:text="REPAIR_IN_PROGRESS"></option>
+                    <option th:value="'COMPLETED'" th:text="COMPLETED"></option>
+                </select>
+                <br>
+                <br>
+                <button class="btn btn-success">Edit order info</button>
+            </form>
+            <br>
+            <a href="/admin/profile" class="btn btn-primary">Back to profile</a>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
