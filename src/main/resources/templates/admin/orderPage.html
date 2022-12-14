@@ -37,6 +37,9 @@
                 <div th:if="${orderByID.orderStatus.name() == 'COMPLETED'}">
                     <h5 th:text="'Status : ' + ${orderByID.orderStatus}" style="color: green"></h5>
                 </div>
+                <br>
+                <a th:href="@{/admin/profile/manageOrder/{orderID}/editOrder(orderID = ${orderByID.id})}"
+                   class="btn btn-success">Edit order info</a>
             </div>
             <!-- RIGHT COLUMN -->
             <div class="col">

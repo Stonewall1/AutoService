@@ -109,4 +109,16 @@ public class AdminController {
         orderService.update(order);
         return "redirect:/admin/profile/manageOrder/" + orderID;
     }
+
+    @GetMapping("/profile/manageOrder/{orderID}/editOrder")
+    public String editOrder(@PathVariable("orderID") long orderID) {
+
+        return "admin/editOrder";
+    }
+
+    @PostMapping("/profile/manageOrder/{orderID}/editOrder")
+    public String editOrder(@PathVariable("orderID") long orderID, Model model) {
+
+        return "redirect:/admin/profile/manageOrder/" + orderID;
+    }
 }

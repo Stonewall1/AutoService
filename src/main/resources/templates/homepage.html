@@ -22,7 +22,7 @@
             <br>
 
             <div th:if="${currentUser == null}">
-                <p>Sign-in to use full list of services!</p>
+                <h3>Sign-in to use full list of services!</h3>
                 <a href="login.html" th:href="@{user/login}" class="btn btn-primary">Login</a>
             </div>
             <div th:if="${currentUser != null}">
