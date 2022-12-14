@@ -11,6 +11,8 @@ import com.autoservice.service.AdminService;
 import com.autoservice.service.MasterService;
 import com.autoservice.service.OperationService;
 import com.autoservice.service.OrderService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,7 @@ public class AdminController {
     private final MasterService masterService;
     private final OrderService orderService;
     private final OperationService operationService;
+    private static final Logger log = LogManager.getLogger(AdminController.class);
 
     public AdminController(AdminService adminService, MasterService masterService, OrderService orderService, OperationService operationService) {
         this.adminService = adminService;
@@ -49,6 +52,7 @@ public class AdminController {
         Optional<Admin> admin = adminService.checkCredentials(adminLoginDto);
         if (admin.isPresent()) {
             session.setAttribute("currentAdmin", admin.get());
+            log.info("Admin logged in");
             return "redirect:/";
         } else {
             model.addAttribute("message", "Wrong credentials");
@@ -78,6 +82,7 @@ public class AdminController {
             return "admin/addMaster";
         }
         masterService.save(masterDto);
+        log.info("Master added");
         return "redirect:/admin/profile";
     }
 
@@ -108,6 +113,7 @@ public class AdminController {
         operationService.save(operation);
         Order order = orderService.addOperationToList(orderService.findById(orderID), operation);
         orderService.update(order);
+        log.info("Operation added");
         return "redirect:/admin/profile/manageOrder/" + orderID;
     }
 
@@ -125,6 +131,7 @@ public class AdminController {
         }
         Order byId = orderService.findById(orderID);
         orderService.editOrderInfo(byId, preparedOrderInfoDto);
+        log.info("Order edited");
         return "redirect:/admin/profile/manageOrder/" + orderID;
     }
 }
