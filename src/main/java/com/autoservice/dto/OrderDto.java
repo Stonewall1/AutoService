@@ -11,9 +11,6 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-/**
- * @Lombok only while in development
- */
 public class OrderDto {
     private User carOwner;
     private long carID;

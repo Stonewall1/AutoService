@@ -11,9 +11,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-/**
- * @Lombok only while in development
- */
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

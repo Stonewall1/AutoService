@@ -11,9 +11,6 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-/**
- * @Lombok only while in development
- */
 public class Master {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

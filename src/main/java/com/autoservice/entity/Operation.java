@@ -12,9 +12,6 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-/**
- * @Lombok only while in development
- */
 public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

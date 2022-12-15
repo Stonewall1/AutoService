@@ -16,5 +16,4 @@ public class OperationDto {
     private String operationDescription;
     @NotNull(message = "Field cant be null")
     private BigDecimal price;
-
 }

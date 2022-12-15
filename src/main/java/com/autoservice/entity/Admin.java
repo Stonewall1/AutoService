@@ -10,9 +10,6 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-/**
- * @Lombok only while in development
- */
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
