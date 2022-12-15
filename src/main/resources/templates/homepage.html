@@ -28,6 +28,9 @@
             <div th:if="${currentUser != null}">
                 <h5 th:text="'Hello , ' + ${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></h5>
                 <a href="recordForRepair.html" th:href="@{user/record}" class="btn btn-primary">Record for repair</a>
+                <br>
+                <br>
+                <a href="submitReview.html" th:href="@{user/submitReview}" class="btn btn-primary">Submit review</a>
             </div>
 
         </div>

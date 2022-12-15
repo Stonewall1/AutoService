@@ -3,11 +3,9 @@ package com.autoservice.web.controller;
 import com.autoservice.dto.*;
 import com.autoservice.entity.Car;
 import com.autoservice.entity.Order;
+import com.autoservice.entity.Review;
 import com.autoservice.entity.User;
-import com.autoservice.service.CarService;
-import com.autoservice.service.MasterService;
-import com.autoservice.service.OrderService;
-import com.autoservice.service.UserService;
+import com.autoservice.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,12 +22,14 @@ public class UserController {
     private final CarService carService;
     private final MasterService masterService;
     private final OrderService orderService;
+    private final ReviewService reviewService;
 
-    public UserController(UserService userService, CarService carService, MasterService masterService, OrderService orderService) {
+    public UserController(UserService userService, CarService carService, MasterService masterService, OrderService orderService, ReviewService reviewService) {
         this.userService = userService;
         this.carService = carService;
         this.masterService = masterService;
         this.orderService = orderService;
+        this.reviewService = reviewService;
     }
 
 
@@ -153,6 +153,21 @@ public class UserController {
                 masterService.findById(orderDto.getMasterID()),
                 carService.findById(orderDto.getCarID()));
         orderService.save(order);
+        return "redirect:/";
+    }
+
+    @GetMapping("/submitReview")
+    public String submitReview(@ModelAttribute("newReview") Review review) {
+        return "submitReview";
+    }
+
+    @PostMapping("/submitReview")
+    public String submitReview(@Valid @ModelAttribute("newReview") Review review, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "submitReview";
+        }
+        User user = userService.findById(((User) session.getAttribute("currentUser")).getId());
+        reviewService.save(review, user);
         return "redirect:/";
     }
 }
