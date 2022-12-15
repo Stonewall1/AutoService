@@ -6,6 +6,8 @@ import com.autoservice.entity.*;
 import com.autoservice.exception.OrderNotFoundException;
 import com.autoservice.repository.OrderRepository;
 import com.autoservice.service.mapper.OrderMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private static final Logger log = LogManager.getLogger(OrderService.class);
 
     public OrderService(OrderRepository orderRepository, OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
@@ -25,7 +28,9 @@ public class OrderService {
     }
 
     public Order save(Order order) {
-        return orderRepository.save(order);
+        Order save = orderRepository.save(order);
+        log.info("Record made , order created");
+        return save;
     }
 
     public Order update(Order order) {
@@ -75,6 +80,8 @@ public class OrderService {
     public Order editOrderInfo(Order order, PreparedOrderInfoDto preparedOrderInfoDto) {
         order.setRepairFinish(preparedOrderInfoDto.getRepairFinish());
         order.setOrderStatus(preparedOrderInfoDto.getOrderStatus());
-        return update(order);
+        Order update = update(order);
+        log.info("Order edited");
+        return update;
     }
 }

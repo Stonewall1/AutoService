@@ -82,7 +82,6 @@ public class AdminController {
             return "admin/addMaster";
         }
         masterService.save(masterDto);
-        log.info("Master added");
         return "redirect:/admin/profile";
     }
 
@@ -113,7 +112,6 @@ public class AdminController {
         operationService.save(operation);
         Order order = orderService.addOperationToList(orderService.findById(orderID), operation);
         orderService.update(order);
-        log.info("Operation added");
         return "redirect:/admin/profile/manageOrder/" + orderID;
     }
 
@@ -131,7 +129,6 @@ public class AdminController {
         }
         Order byId = orderService.findById(orderID);
         orderService.editOrderInfo(byId, preparedOrderInfoDto);
-        log.info("Order edited");
         return "redirect:/admin/profile/manageOrder/" + orderID;
     }
 }

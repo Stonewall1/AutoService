@@ -8,8 +8,6 @@ import com.autoservice.service.CarService;
 import com.autoservice.service.MasterService;
 import com.autoservice.service.OrderService;
 import com.autoservice.service.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +24,6 @@ public class UserController {
     private final CarService carService;
     private final MasterService masterService;
     private final OrderService orderService;
-    private static final Logger log = LogManager.getLogger(UserController.class);
 
     public UserController(UserService userService, CarService carService, MasterService masterService, OrderService orderService) {
         this.userService = userService;
@@ -51,7 +48,6 @@ public class UserController {
             return "registration";
         }
         userService.save(registrationDto);
-        log.info("User registered : " + registrationDto.getFirstName() + " " + registrationDto.getLastName());
         return "redirect:/";
     }
 
@@ -108,7 +104,6 @@ public class UserController {
         }
         User currentUser = (User) session.getAttribute("currentUser");
         userService.editProfileInfo(currentUser, profileEditDto);
-        log.info("User profile edited" + " , user id : " + currentUser.getId());
         return "redirect:/user/profile";
     }
 
@@ -125,7 +120,6 @@ public class UserController {
         User currentUser = (User) session.getAttribute("currentUser");
         Car savedCar = carService.save(carDto, currentUser);
         userService.addInfoAboutCar(currentUser.getId(), savedCar);
-        log.info("User car added");
         return "redirect:/user/profile";
     }
 
@@ -137,7 +131,6 @@ public class UserController {
         carService.deleteCar(carById);
 
         userService.update(userById);
-        log.info("User car deleted");
         return "redirect:/user/profile";
     }
 
@@ -160,7 +153,6 @@ public class UserController {
                 masterService.findById(orderDto.getMasterID()),
                 carService.findById(orderDto.getCarID()));
         orderService.save(order);
-        log.info("Record made");
         return "redirect:/";
     }
 }

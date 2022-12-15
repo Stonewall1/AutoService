@@ -6,6 +6,8 @@ import com.autoservice.entity.Role;
 import com.autoservice.exception.MasterNotFoundException;
 import com.autoservice.repository.MasterRepository;
 import com.autoservice.service.mapper.MasterMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import java.util.Optional;
 public class MasterService {
     private final MasterRepository masterRepository;
     private final MasterMapper masterMapper;
+    private static final Logger log = LogManager.getLogger(MasterService.class);
 
     public MasterService(MasterRepository masterRepository, MasterMapper masterMapper) {
         this.masterRepository = masterRepository;
@@ -27,6 +30,7 @@ public class MasterService {
         Master master = masterMapper.convertMasterDtoToMaster(masterDto);
         master.setRole(Role.MASTER);
         masterRepository.save(master);
+        log.info("Master added");
     }
 
     @Transactional(readOnly = true)

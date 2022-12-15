@@ -8,6 +8,8 @@ import com.autoservice.entity.User;
 import com.autoservice.exception.UserNotFoundException;
 import com.autoservice.repository.UserRepository;
 import com.autoservice.service.mapper.UserMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private static final Logger log = LogManager.getLogger(UserService.class);
 
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
@@ -27,6 +30,7 @@ public class UserService {
     public User save(RegistrationDto dto) {
         User user = mapToUser(dto);
         userRepository.save(user);
+        log.info("User registered : " + dto.getFirstName() + " " + dto.getLastName());
         return user;
     }
 
@@ -61,6 +65,7 @@ public class UserService {
     public User editProfileInfo(User user, ProfileEditDto profileEditDto) {
         User editedUser = userMapper.editUserProfile(user, profileEditDto);
         update(editedUser);
+        log.info("User profile edited" + " , user id : " + user.getId());
         return editedUser;
     }
 
@@ -72,9 +77,11 @@ public class UserService {
         User user = findById(id);
         user.getCars().add(car);
         update(user);
+        log.info("User car added");
     }
 
     public void deleteUsersCar(Car car, User user) {
         user.getCars().remove(car);
+        log.info("User car deleted");
     }
 }
