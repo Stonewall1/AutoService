@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -34,15 +36,8 @@ public class ReviewService {
     }
 
     public BigDecimal countAverageRating() {
-        BigDecimal average = new BigDecimal("0");
-        List<Review> allReviews = reviewRepository.findAll();
-        if (allReviews.size() != 0) {
-            for (Review review : allReviews) {
-                average = average.add(BigDecimal.valueOf(review.getRating()));
-            }
-            average = average.divide(BigDecimal.valueOf(allReviews.size()), RoundingMode.DOWN);
-
-        }
-        return average;
+        return BigDecimal.valueOf(findAll()
+                .stream()
+                .collect(Collectors.averagingDouble(Review::getRating)));
     }
 }
