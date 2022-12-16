@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ReviewService {
@@ -23,4 +25,14 @@ public class ReviewService {
         reviewRepository.save(review);
         log.info("Review created");
     }
+
+    @Transactional(readOnly = true)
+    public List<Review> findAll() {
+        return reviewRepository.findAll();
+    }
+
+//    public double countAverageRating() {
+//        List<Review> allReviews = reviewRepository.findAll();
+//
+//    }
 }

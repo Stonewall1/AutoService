@@ -3,6 +3,7 @@ package com.autoservice.web.controller;
 import com.autoservice.entity.Admin;
 import com.autoservice.entity.User;
 import com.autoservice.service.AdminService;
+import com.autoservice.service.ReviewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,11 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/")
 public class AutoserviceController {
     private final AdminService adminService;
+    private final ReviewService reviewService;
 
-    public AutoserviceController(AdminService adminService) {
+    public AutoserviceController(AdminService adminService, ReviewService reviewService) {
         this.adminService = adminService;
+        this.reviewService = reviewService;
     }
 
     @GetMapping
@@ -27,6 +30,8 @@ public class AutoserviceController {
         }
         model.addAttribute("currentUser", (User) session.getAttribute("currentUser"));
         model.addAttribute("currentAdmin", (Admin) session.getAttribute("currentAdmin"));
+        model.addAttribute("reviewsCount", reviewService.findAll().size());
+//        model.addAttribute("averageRating", reviewService.countAverageRating());
         return "homepage";
     }
 
