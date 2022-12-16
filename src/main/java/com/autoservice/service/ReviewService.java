@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -31,8 +33,16 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
-//    public double countAverageRating() {
-//        List<Review> allReviews = reviewRepository.findAll();
-//
-//    }
+    public BigDecimal countAverageRating() {
+        BigDecimal average = new BigDecimal("0");
+        List<Review> allReviews = reviewRepository.findAll();
+        if (allReviews.size() != 0) {
+            for (Review review : allReviews) {
+                average = average.add(BigDecimal.valueOf(review.getRating()));
+            }
+            average = average.divide(BigDecimal.valueOf(allReviews.size()), RoundingMode.DOWN);
+
+        }
+        return average;
+    }
 }

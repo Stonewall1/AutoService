@@ -31,7 +31,7 @@ public class AutoserviceController {
         model.addAttribute("currentUser", (User) session.getAttribute("currentUser"));
         model.addAttribute("currentAdmin", (Admin) session.getAttribute("currentAdmin"));
         model.addAttribute("reviewsCount", reviewService.findAll().size());
-//        model.addAttribute("averageRating", reviewService.countAverageRating());
+        model.addAttribute("averageRating", reviewService.countAverageRating());
         return "homepage";
     }
 

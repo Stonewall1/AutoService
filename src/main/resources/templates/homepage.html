@@ -8,11 +8,10 @@
 </head>
 <body>
 <div class="container">
-    <h5 th:text="'Reviews : ' + ${reviewsCount}"></h5>
-    <h5 th:text="'Average rating : ' + ${averageRating}"></h5>
     <div class="row justify-content-center">
         <div class="col-8 text-center mt-5 ">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxGbURBS_1RCMY_Lw8tw2curgfM18E8qY0PQ&usqp=CAU" width="100"
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxGbURBS_1RCMY_Lw8tw2curgfM18E8qY0PQ&usqp=CAU"
+                 width="100"
                  height="100" alt="">
             <h1>Auto Service</h1>
             <a th:if="${currentAdmin != null && currentUser == null}">
@@ -37,6 +36,8 @@
 
         </div>
     </div>
+    <h5 th:text="'Reviews : ' + ${reviewsCount}"></h5>
+    <h5 th:text="'Average rating : ' + ${averageRating}"></h5>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
